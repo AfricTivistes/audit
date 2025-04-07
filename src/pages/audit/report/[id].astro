@@ -1,0 +1,150 @@
+---
+import MainLayout from '../../../layouts/MainLayout.astro';
+import DataSecurityBanner from '../../../components/DataSecurityBanner.astro';
+
+// Simuler la récupération des données depuis un fichier JSON
+import mockData from '../../../data/mock-data.json';
+const { user, recommendations } = mockData;
+
+// Calculer le score global
+const totalScore = Math.round(
+  recommendations.reduce((sum, rec) => sum + rec.score, 0) / recommendations.length
+);
+
+// Date du rapport
+const reportDate = new Date().toLocaleDateString('fr-FR');
+
+// Déterminer la classe de couleur en fonction du score
+const getScoreColorClass = (score) => {
+  if (score >= 70) return 'text-green-600';
+  if (score >= 40) return 'text-yellow-600';
+  return 'text-red-600';
+};
+
+const scoreColorClass = getScoreColorClass(totalScore);
+
+// Fonction getStaticPaths requise pour les routes dynamiques
+export function getStaticPaths() {
+  // Générer des chemins pour chaque audit dans nos données mock
+  const paths = mockData.audits.map(audit => ({
+    params: { id: audit.id }
+  }));
+  
+  // Ajouter également les audits complétés
+  mockData.completedAudits.forEach(audit => {
+    paths.push({
+      params: { id: audit.id }
+    });
+  });
+  
+  return paths;
+}
+
+const { id } = Astro.params;
+---
+
+<MainLayout title="Rapport d'audit" showSidebar={true}>
+  <div class="max-w-4xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-900">Rapport d'audit de sécurité numérique</h1>
+      <button 
+        id="downloadPdf"
+        class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+      >
+        Télécharger PDF
+      </button>
+    </div>
+    
+    <DataSecurityBanner />
+    
+    <div class="bg-white rounded-lg shadow-md p-6 mb-8" id="reportContent">
+      <div class="border-b border-gray-200 pb-4 mb-4">
+        <h2 class="text-xl font-bold text-gray-900">Informations générales</h2>
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <p class="text-sm text-gray-500">Organisation</p>
+            <p class="font-medium">{user.organization}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Pays</p>
+            <p class="font-medium">{user.country}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Date du rapport</p>
+            <p class="font-medium">{reportDate}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Type d'audit</p>
+            <p class="font-medium">Audit sûreté - sécurité numérique</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-b border-gray-200 pb-4 mb-4">
+        <div class="flex flex-col md:flex-row items-center justify-between">
+          <h2 class="text-xl font-bold text-gray-900">Score global</h2>
+          <div class="mt-4 md:mt-0 flex items-center">
+            <div class={`text-4xl font-bold ${scoreColorClass}`}>{totalScore}</div>
+            <div class="ml-2 text-lg text-gray-500">/100</div>
+          </div>
+        </div>
+        
+        <div class="mt-4">
+          <div class="w-full bg-gray-200 rounded-full h-3">
+            <div 
+              class={`h-3 rounded-full ${
+                totalScore >= 70 ? 'bg-green-600' : totalScore >= 40 ? 'bg-yellow-500' : 'bg-red-600'
+              }`} 
+              style={`width: ${totalScore}%`}
+            ></div>
+          </div>
+        </div>
+        
+        <div class="mt-4">
+          <p class="text-gray-600">
+            {totalScore >= 70 
+              ? 'Votre niveau de sécurité numérique est bon, mais il y a encore des améliorations possibles.' 
+              : totalScore >= 40 
+                ? 'Votre niveau de sécurité numérique est moyen. Plusieurs mesures importantes doivent être mises en place.' 
+                : 'Votre niveau de sécurité numérique est faible. Des actions urgentes sont nécessaires pour protéger vos données et votre organisation.'}
+          </p>
+        </div>
+      </div>
+      
+      <div>
+        <h2 class="text-xl font-bold text-gray-900 mb-4">Recommandations par catégorie</h2>
+        
+        {recommendations.map((rec) => (
+          <div class="mb-6">
+            <h3 class="text-lg font-medium text-gray-900 flex items-center">
+              <span>{rec.category}</span>
+              <span class={`ml-2 px-2 py-1 text-sm rounded-full ${
+                rec.score >= 70 ? 'bg-green-100 text-green-800' : 
+                rec.score >= 40 ? 'bg-yellow-100 text-yellow-800' : 
+                'bg-red-100 text-red-800'
+              }`}>
+                {rec.score}/100
+              </span>
+            </h3>
+            <ul class="mt-2 space-y-2">
+              {rec.items.map((item) => (
+                <li class="flex items-start">
+                  <span class="mr-2">•</span>
+                  <span class="text-gray-600">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Simuler le téléchargement du PDF
+    document.getElementById('downloadPdf').addEventListener('click', function() {
+      alert('Le téléchargement du rapport au format PDF a été simulé.');
+    });
+  </script>
+</MainLayout>
+

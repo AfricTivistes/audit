@@ -1,0 +1,39 @@
+---
+const menuItems = [
+  { name: 'Tableau de bord', href: '/dashboard', icon: 'home' },
+  { name: 'Mes audits', href: '/audits', icon: 'clipboard-check' },
+  { name: 'Rapports', href: '/reports', icon: 'document-text' },
+  { name: 'Paramètres', href: '/settings', icon: 'cog' }
+];
+---
+
+<aside class="hidden md:block w-64 bg-white border-r border-gray-200 fixed inset-y-0 pt-16 z-40">
+  <div class="h-full px-3 py-4 overflow-y-auto">
+    <ul class="space-y-2">
+      {menuItems.map((item) => (
+        <li>
+          <a 
+            href={item.href} 
+            class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group"
+          >
+            <span class="ms-3">{item.name}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</aside>
+
+<div class="md:hidden fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200">
+  <div class="grid h-full grid-cols-4">
+    {menuItems.map((item) => (
+      <a 
+        href={item.href} 
+        class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group"
+      >
+        <span class="text-sm text-gray-500 group-hover:text-blue-600">{item.name}</span>
+      </a>
+    ))}
+  </div>
+</div>
+

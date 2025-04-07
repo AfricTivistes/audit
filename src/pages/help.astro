@@ -1,0 +1,85 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import DataSecurityBanner from '../components/DataSecurityBanner.astro';
+---
+
+<MainLayout title="Aide">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">À propos d'Africtivistes Digital Self-Audit</h1>
+    
+    <DataSecurityBanner />
+    
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+      <div class="p-6">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">Notre mission</h2>
+        <p class="text-gray-600 mb-4">
+          Africtivistes est une initiative visant à renforcer la résilience numérique des organisations en Afrique. 'Digital Self-Audit' est un outil conçu pour auditer votre environnement numérique en toute sécurité.
+        </p>
+        <p class="text-gray-600 mb-4">
+          Notre objectif est de permettre aux organisations africaines d'évaluer et d'améliorer leur sécurité numérique de manière autonome, en identifiant les vulnérabilités et en proposant des recommandations adaptées à leur contexte.
+        </p>
+      </div>
+    </div>
+    
+    <div class="bg-white shadow-md rounded-lg overflow-hidden mt-8">
+      <div class="p-6">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">Sécurité et confidentialité</h2>
+        <p class="text-gray-600 mb-4">
+          Nous garantissons la confidentialité de vos données. Aucune information n'est partagée sans votre consentement explicite, et toutes les données sont protégées selon les meilleures pratiques.
+        </p>
+        <ul class="list-disc pl-5 text-gray-600 space-y-2">
+          <li>Toutes les données sont chiffrées en transit et au repos.</li>
+          <li>Nous ne collectons que les informations nécessaires à la réalisation des audits.</li>
+          <li>Vous gardez le contrôle total sur vos données et pouvez demander leur suppression à tout moment.</li>
+          <li>Notre infrastructure est régulièrement auditée pour garantir sa sécurité.</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="bg-white shadow-md rounded-lg overflow-hidden mt-8">
+      <div class="p-6">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">Comment ça marche</h2>
+        <ol class="list-decimal pl-5 text-gray-600 space-y-4">
+          <li>
+            <strong>Créez un compte</strong>
+            <p>Inscrivez-vous avec votre email et un mot de passe sécurisé.</p>
+          </li>
+          <li>
+            <strong>Sélectionnez un audit</strong>
+            <p>Choisissez l'audit que vous souhaitez réaliser parmi ceux disponibles.</p>
+          </li>
+          <li>
+            <strong>Répondez aux questions</strong>
+            <p>Complétez le questionnaire d'audit. Vous pouvez sauvegarder vos réponses et reprendre plus tard.</p>
+          </li>
+          <li>
+            <strong>Recevez vos résultats</strong>
+            <p>Obtenez une analyse détaillée de votre niveau de sécurité et des recommandations personnalisées.</p>
+          </li>
+          <li>
+            <strong>Mettez en œuvre les recommandations</strong>
+            <p>Suivez les conseils pour améliorer votre sécurité numérique.</p>
+          </li>
+          <li>
+            <strong>Refaites l'audit régulièrement</strong>
+            <p>La sécurité est un processus continu. Refaites l'audit périodiquement pour mesurer vos progrès.</p>
+          </li>
+        </ol>
+      </div>
+    </div>
+    
+    <div class="bg-white shadow-md rounded-lg overflow-hidden mt-8">
+      <div class="p-6">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">Besoin d'aide ?</h2>
+        <p class="text-gray-600 mb-4">
+          Si vous avez des questions ou besoin d'assistance, n'hésitez pas à nous contacter :
+        </p>
+        <ul class="text-gray-600 space-y-2">
+          <li>Email : <a href="mailto:support@africtivistes.org" class="text-blue-600 hover:underline">support@africtivistes.org</a></li>
+          <li>Téléphone : +221 XX XXX XX XX</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</MainLayout>
+

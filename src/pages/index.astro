@@ -1,0 +1,88 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { Image } from 'astro:assets';
+---
+
+<MainLayout title="Accueil" fullHeight={true}>
+  <div class="relative min-h-[calc(100vh-8rem)] flex items-center justify-center">
+    <!-- Image de fond avec overlay -->
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-900/70 to-blue-950/90 z-10"></div>
+      <Image 
+        src={"/placeholder.svg"} 
+        alt="Technologie en Afrique" 
+        class="w-full h-full object-cover"
+        width={1920}
+        height={1080}
+        quality={80}
+        loading="eager"
+      />
+    </div>
+    
+    <!-- Contenu principal -->
+    <div class="relative z-20 max-w-4xl mx-auto px-6 py-12 text-center">
+      <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white mb-6">
+        Africtivistes Digital Self-Audit
+      </h1>
+      <p class="mt-6 text-xl leading-8 text-gray-200 mb-10 max-w-2xl mx-auto">
+        Renforcez votre résilience numérique grâce à notre outil d'auto-évaluation sécurisé conçu pour les organisations africaines.
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href="/login"
+          class="w-full sm:w-auto rounded-md bg-blue-600 px-5 py-3 text-base font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-colors"
+        >
+          Se connecter
+        </a>
+        <a 
+          href="/register" 
+          class="w-full sm:w-auto rounded-md bg-white/10 backdrop-blur-sm px-5 py-3 text-base font-semibold text-white hover:bg-white/20 transition-colors"
+        >
+          Créer un compte <span aria-hidden="true">→</span>
+        </a>
+      </div>
+      
+      <!-- Badges ou caractéristiques -->
+      <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+          <div class="text-3xl mb-3 text-white">🔒</div>
+          <h3 class="text-lg font-semibold text-white mb-2">Sécurité renforcée</h3>
+          <p class="text-gray-200">Vos données sont chiffrées et protégées selon les meilleures pratiques.</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+          <div class="text-3xl mb-3 text-white">📊</div>
+          <h3 class="text-lg font-semibold text-white mb-2">Analyse détaillée</h3>
+          <p class="text-gray-200">Obtenez des recommandations personnalisées pour améliorer votre sécurité.</p>
+        </div>
+        <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6">
+          <div class="text-3xl mb-3 text-white">🌍</div>
+          <h3 class="text-lg font-semibold text-white mb-2">Adapté à l'Afrique</h3>
+          <p class="text-gray-200">Conçu spécifiquement pour les défis numériques des organisations africaines.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</MainLayout>
+
+<script>
+  // Ajouter un effet de shadow au header lors du défilement
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('header');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 10) {
+        header?.classList.add('scrolled');
+      } else {
+        header?.classList.remove('scrolled');
+      }
+    });
+  });
+</script>
+
+<style>
+  /* Assure que l'image de fond couvre toute la hauteur disponible */
+  .min-h-[calc(100vh-8rem)] {
+    min-height: calc(100vh - 8rem); /* Ajustez selon la hauteur de votre header et footer */
+  }
+</style>
+

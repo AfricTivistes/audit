@@ -1,0 +1,49 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import ReportCard from '../components/ReportCard';
+import DataSecurityBanner from '../components/DataSecurityBanner.astro';
+
+// Simuler la récupération des données depuis un fichier JSON
+import mockData from '../data/mock-data.json';
+const { recommendations } = mockData;
+
+// Créer des rapports simulés
+const reports = [
+  {
+    id: 'report-001',
+    title: 'Audit sûreté - sécurité numérique',
+    date: '15/03/2023',
+    score: 65,
+    recommendations: recommendations.flatMap(rec => rec.items).slice(0, 3)
+  }
+];
+---
+
+<MainLayout title="Rapports" showSidebar={true}>
+  <div class="max-w-7xl mx-auto">
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">Mes rapports</h1>
+    
+    <DataSecurityBanner />
+    
+    {reports.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {reports.map((report) => (
+          <ReportCard
+            title={report.title}
+            date={report.date}
+            score={report.score}
+            recommendations={report.recommendations}
+            onView={() => {}}
+            onDownload={() => {}}
+            client:load
+          />
+        ))}
+      </div>
+    ) : (
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <p class="text-gray-600">Vous n'avez pas encore de rapports.</p>
+      </div>
+    )}
+  </div>
+</MainLayout>
+

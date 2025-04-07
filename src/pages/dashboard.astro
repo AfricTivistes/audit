@@ -1,0 +1,69 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import AuditCard from '../components/AuditCard';
+import DataSecurityBanner from '../components/DataSecurityBanner.astro';
+
+// Simuler la récupération des données depuis un fichier JSON
+import mockData from '../data/mock-data.json';
+const { user, audits, completedAudits } = mockData;
+---
+
+<MainLayout title="Tableau de bord" showSidebar={true}>
+  <div class="max-w-7xl mx-auto">
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">Bienvenue, {user.name}</h1>
+    
+    <DataSecurityBanner />
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-lg font-medium text-gray-900 mb-2">Organisation</h2>
+        <p class="text-gray-600">{user.organization}</p>
+      </div>
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-lg font-medium text-gray-900 mb-2">Pays</h2>
+        <p class="text-gray-600">{user.country}</p>
+      </div>
+      <div class="bg-white rounded-lg shadow-md p-6">
+        <h2 class="text-lg font-medium text-gray-900 mb-2">Rôle</h2>
+        <p class="text-gray-600">{user.role}</p>
+      </div>
+    </div>
+    
+    <h2 class="text-xl font-bold text-gray-900 mb-4">Audits disponibles</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      {audits.map((audit) => (
+        <AuditCard
+          title={audit.type}
+          description={audit.description}
+          icon={audit.icon}
+          status={audit.status}
+          onClick={() => {}}
+          client:load
+        />
+      ))}
+    </div>
+    
+    <h2 class="text-xl font-bold text-gray-900 mb-4">Audits complétés</h2>
+    {completedAudits.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {completedAudits.map((audit) => (
+          <AuditCard
+            title={audit.type}
+            description={audit.description}
+            icon={audit.icon}
+            status={audit.status}
+            completionDate={audit.completionDate}
+            score={audit.score}
+            onClick={() => {}}
+            client:load
+          />
+        ))}
+      </div>
+    ) : (
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <p class="text-gray-600">Vous n'avez pas encore complété d'audit.</p>
+      </div>
+    )}
+  </div>
+</MainLayout>
+

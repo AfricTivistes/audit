@@ -1,0 +1,52 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import QuestionForm from '../../components/QuestionForm';
+import DataSecurityBanner from '../../components/DataSecurityBanner.astro';
+
+// Simuler la récupération des données depuis un fichier JSON
+import mockData from '../../data/mock-data.json';
+const { questions } = mockData;
+
+// Fonction getStaticPaths requise pour les routes dynamiques
+export function getStaticPaths() {
+  // Générer des chemins pour chaque audit dans nos données mock
+  const paths = mockData.audits.map(audit => ({
+    params: { id: audit.id }
+  }));
+  
+  return paths;
+}
+
+// Dans un vrai projet, on récupérerait l'ID de l'audit depuis les paramètres de l'URL
+const { id } = Astro.params;
+
+// Trouver l'audit correspondant à l'ID
+const audit = mockData.audits.find(a => a.id === id) || {
+  type: "Audit sûreté - sécurité numérique"
+};
+---
+
+<MainLayout title={audit.type} showSidebar={true}>
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-2xl font-bold text-gray-900 mb-2">{audit.type}</h1>
+    <p class="text-gray-600 mb-6">Répondez aux questions suivantes pour évaluer votre sécurité numérique.</p>
+    
+    <DataSecurityBanner />
+    
+    <QuestionForm 
+      questions={questions} 
+      onComplete={(answers) => {
+        console.log('Audit completed', answers);
+        // Rediriger vers la page de résultats
+        window.location.href = `/audit/results/${id}`;
+      }}
+      onSave={(answers) => {
+        console.log('Audit saved', answers);
+        // Sauvegarder les réponses (simulé)
+        alert('Vos réponses ont été sauvegardées.');
+      }}
+      client:load
+    />
+  </div>
+</MainLayout>
+

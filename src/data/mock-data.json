@@ -1,0 +1,220 @@
+{
+  "user": {
+    "id": "user-001",
+    "name": "Aminata Diallo",
+    "email": "demo@africtivistes.org",
+    "organization": "ONG Éducation Pour Tous",
+    "country": "Sénégal",
+    "role": "Responsable de communication"
+  },
+  "audits": [
+    {
+      "id": "audit-001",
+      "type": "Audit sûreté - sécurité numérique",
+      "description": "Évaluez la sécurité de votre environnement numérique et identifiez les vulnérabilités potentielles.",
+      "icon": "🔒",
+      "status": "available"
+    },
+    {
+      "id": "audit-002",
+      "type": "Audit de protection des données",
+      "description": "Évaluez comment votre organisation gère et protège les données sensibles.",
+      "icon": "🛡️",
+      "status": "coming-soon"
+    }
+  ],
+  "completedAudits": [
+    {
+      "id": "completed-001",
+      "type": "Audit sûreté - sécurité numérique",
+      "description": "Évaluation de la sécurité de votre environnement numérique.",
+      "icon": "🔒",
+      "status": "completed",
+      "completionDate": "15/03/2023",
+      "score": 65
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "text": "Quelle est la mission de votre organisation ?",
+      "type": "text",
+      "required": true
+    },
+    {
+      "id": "q2",
+      "text": "Pays d'intervention",
+      "type": "select",
+      "options": [
+        "Afrique du Sud",
+        "Algérie",
+        "Angola",
+        "Bénin",
+        "Botswana",
+        "Burkina Faso",
+        "Burundi",
+        "Cameroun",
+        "Cap-Vert",
+        "République centrafricaine",
+        "Tchad",
+        "Comores",
+        "Congo",
+        "République démocratique du Congo",
+        "Djibouti",
+        "Égypte",
+        "Guinée équatoriale",
+        "Érythrée",
+        "Eswatini",
+        "Éthiopie",
+        "Gabon",
+        "Gambie",
+        "Ghana",
+        "Guinée",
+        "Guinée-Bissau",
+        "Côte d'Ivoire",
+        "Kenya",
+        "Lesotho",
+        "Libéria",
+        "Libye",
+        "Madagascar",
+        "Malawi",
+        "Mali",
+        "Mauritanie",
+        "Maurice",
+        "Maroc",
+        "Mozambique",
+        "Namibie",
+        "Niger",
+        "Nigeria",
+        "Rwanda",
+        "Sao Tomé-et-Principe",
+        "Sénégal",
+        "Seychelles",
+        "Sierra Leone",
+        "Somalie",
+        "Soudan du Sud",
+        "Soudan",
+        "Tanzanie",
+        "Togo",
+        "Tunisie",
+        "Ouganda",
+        "Zambie",
+        "Zimbabwe"
+      ],
+      "required": true
+    },
+    {
+      "id": "q3",
+      "text": "Considérez-vous dangereux votre contact avec cette communauté ?",
+      "type": "radio",
+      "options": ["Non", "Oui", "Très dangereux"],
+      "required": true
+    },
+    {
+      "id": "q4",
+      "text": "Quels types de difficultés rencontrez-vous ?",
+      "type": "checkbox",
+      "options": ["Accès", "Communication", "Sécurité", "Financement", "Ressources humaines", "Logistique", "Autre"],
+      "required": true
+    },
+    {
+      "id": "q5",
+      "text": "Utilisez-vous des mots de passe différents pour chaque compte en ligne ?",
+      "type": "radio",
+      "options": ["Oui, toujours", "La plupart du temps", "Rarement", "Non, jamais"],
+      "required": true
+    },
+    {
+      "id": "q6",
+      "text": "Utilisez-vous l'authentification à deux facteurs (2FA) pour vos comptes importants ?",
+      "type": "radio",
+      "options": [
+        "Oui, pour tous les comptes qui le proposent",
+        "Seulement pour certains comptes",
+        "Non, je n'utilise pas la 2FA",
+        "Je ne sais pas ce qu'est la 2FA"
+      ],
+      "required": true
+    },
+    {
+      "id": "q7",
+      "text": "Comment stockez-vous vos mots de passe ?",
+      "type": "radio",
+      "options": [
+        "Dans un gestionnaire de mots de passe sécurisé",
+        "Dans un fichier protégé par mot de passe",
+        "Dans un carnet physique",
+        "Je les mémorise tous",
+        "Je les note dans un fichier non protégé"
+      ],
+      "required": true
+    },
+    {
+      "id": "q8",
+      "text": "Quels appareils utilisez-vous pour votre travail ?",
+      "type": "checkbox",
+      "options": [
+        "Ordinateur portable personnel",
+        "Ordinateur portable professionnel",
+        "Ordinateur de bureau",
+        "Smartphone personnel",
+        "Smartphone professionnel",
+        "Tablette"
+      ],
+      "required": true
+    },
+    {
+      "id": "q9",
+      "text": "Vos appareils sont-ils chiffrés ?",
+      "type": "radio",
+      "options": ["Oui, tous", "Certains seulement", "Non", "Je ne sais pas"],
+      "required": true
+    },
+    {
+      "id": "q10",
+      "text": "Utilisez-vous un VPN lorsque vous vous connectez à des réseaux Wi-Fi publics ?",
+      "type": "radio",
+      "options": ["Oui, toujours", "Parfois", "Rarement", "Jamais", "Je ne sais pas ce qu'est un VPN"],
+      "required": true
+    }
+  ],
+  "recommendations": [
+    {
+      "category": "Mots de passe",
+      "score": 45,
+      "items": [
+        "Utilisez un gestionnaire de mots de passe pour créer et stocker des mots de passe uniques et complexes pour chaque compte.",
+        "Activez l'authentification à deux facteurs (2FA) pour tous vos comptes importants.",
+        "Changez régulièrement vos mots de passe, au moins tous les 3 mois."
+      ]
+    },
+    {
+      "category": "Sécurité des appareils",
+      "score": 70,
+      "items": [
+        "Activez le chiffrement complet du disque sur tous vos appareils.",
+        "Installez et maintenez à jour un logiciel antivirus sur tous vos appareils.",
+        "Configurez vos appareils pour qu'ils se verrouillent automatiquement après une courte période d'inactivité."
+      ]
+    },
+    {
+      "category": "Communication sécurisée",
+      "score": 30,
+      "items": [
+        "Utilisez des applications de messagerie chiffrées de bout en bout comme Signal pour les communications sensibles.",
+        "Évitez de partager des informations sensibles par email non chiffré.",
+        "Utilisez toujours un VPN lorsque vous vous connectez à des réseaux Wi-Fi publics."
+      ]
+    },
+    {
+      "category": "Protection des données",
+      "score": 55,
+      "items": [
+        "Effectuez des sauvegardes régulières de vos données importantes sur des supports externes chiffrés.",
+        "Mettez en place une politique de classification des données pour identifier les informations sensibles.",
+        "Formez votre équipe aux bonnes pratiques de sécurité des données."
+      ]
+    }
+  ]
+}
+

@@ -1,0 +1,113 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import DataSecurityBanner from '../components/DataSecurityBanner.astro';
+---
+
+<MainLayout title="Politique de confidentialité">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">Politique de confidentialité</h1>
+
+    <DataSecurityBanner />
+
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+      <div class="p-6">
+        <p class="text-gray-600 mb-6">
+          Dernière mise à jour : {new Date().toLocaleDateString('fr-FR')}
+        </p>
+
+        <div class="space-y-6">
+          <section>
+            <h2 class="text-xl font-bold text-gray-900 mb-3">Introduction</h2>
+            <p class="text-gray-600">
+              Africtivistes ("nous", "notre", "nos") s'engage à protéger votre vie privée. Cette politique de confidentialité explique comment nous collectons, utilisons, divulguons et protégeons vos informations lorsque vous utilisez notre plateforme Digital Self-Audit.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-bold text-gray-900 mb-3">Informations que nous collectons</h2>
+            <p class="text-gray-600 mb-2">
+              Nous collectons les types d'informations suivants :
+            </p>
+            <ul class="list-disc pl-5 text-gray-600 space-y-1">
+              <li>Informations d'identification (nom, adresse e-mail, organisation)</li>
+              <li>Informations de contact (pays, numéro de téléphone)</li>
+              <li>Réponses aux questionnaires d'audit</li>
+              <li>Informations sur l'utilisation de la plateforme</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-bold text-gray-900 mb-3">Comment nous utilisons vos informations</h2>
+            <p class="text-gray-600 mb-2">
+              Nous utilisons les informations collectées pour :
+            </p>
+            <ul class="list-disc pl-5 text-gray-600 space-y-1">
+              <li>Fournir, maintenir et améliorer notre plateforme</li>
+              <li>Générer des rapports d'audit personnalisés</li>
+              <li>Communiquer avec vous concernant votre compte</li>
+              <li>Protéger la sécurité et l'intégrité de notre plateforme</li>
+              <li>Se conformer aux obligations légales</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-bold text-gray-900 mb-3">Protection des données</h2>
+            <p class="text-gray-600">
+              Nous prenons la sécurité de vos données très au sérieux. Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos informations personnelles contre la perte, l'utilisation abusive, l'accès non autorisé, la divulgation, l'altération et la destruction. Toutes les données sont chiffrées en transit et au repos.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-bold text-gray-900 mb-3">Partage des informations</h2>
+            <p class="text-gray-600">
+              Nous ne vendons pas vos informations personnelles à des tiers. Nous pouvons partager vos informations dans les circonstances suivantes :
+            </p>
+            <ul class="list-disc pl-5 text-gray-600 space-y-1">
+              <li>Avec votre consentement explicite</li>
+              <li>Pour se conformer aux lois et réglementations applicables</li>
+              <li>Pour protéger nos droits, notre vie privée, notre sécurité ou notre propriété</li>
+              <li>Dans le cadre d'une fusion, acquisition ou vente d'actifs</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-bold text-gray-900 mb-3">Vos droits</h2>
+            <p class="text-gray-600 mb-2">
+              Vous avez certains droits concernant vos informations personnelles :
+            </p>
+            <ul class="list-disc pl-5 text-gray-600 space-y-1">
+              <li>Droit d'accès à vos informations</li>
+              <li>Droit de rectification des informations inexactes</li>
+              <li>Droit à l'effacement de vos données</li>
+              <li>Droit de limiter le traitement de vos données</li>
+              <li>Droit à la portabilité des données</li>
+              <li>Droit d'opposition au traitement</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-bold text-gray-900 mb-3">Conservation des données</h2>
+            <p class="text-gray-600">
+              Nous conservons vos informations personnelles aussi longtemps que nécessaire pour fournir nos services et respecter nos obligations légales. Lorsque nous n'avons plus besoin de vos informations, nous les supprimons ou les anonymisons de manière sécurisée.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-bold text-gray-900 mb-3">Modifications de cette politique</h2>
+            <p class="text-gray-600">
+              Nous pouvons mettre à jour cette politique de confidentialité de temps à autre. Nous vous informerons de tout changement important en publiant la nouvelle politique sur notre plateforme et en vous informant par e-mail.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-xl font-bold text-gray-900 mb-3">Nous contacter</h2>
+            <p class="text-gray-600">
+              Si vous avez des questions concernant cette politique de confidentialité, veuillez nous contacter à <a href="mailto:privacy@africtivistes.org" class="text-blue-600 hover:underline">privacy@africtivistes.org</a>.
+            </p>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</MainLayout>
+

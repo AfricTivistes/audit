@@ -1,0 +1,59 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import AuditCard from '../components/AuditCard';
+import DataSecurityBanner from '../components/DataSecurityBanner.astro';
+
+// Simuler la récupération des données depuis un fichier JSON
+import mockData from '../data/mock-data.json';
+const { audits, completedAudits } = mockData;
+---
+
+<MainLayout title="Mes audits" showSidebar={true}>
+  <div class="max-w-7xl mx-auto">
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">Mes audits</h1>
+    
+    <DataSecurityBanner />
+    
+    <h2 class="text-xl font-bold text-gray-900 mb-4">Audits disponibles</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      {audits.map((audit) => (
+        <AuditCard
+          title={audit.type}
+          description={audit.description}
+          icon={audit.icon}
+          status={audit.status}
+          onClick={() => {}}
+          client:load
+        />
+      ))}
+    </div>
+    
+    <h2 class="text-xl font-bold text-gray-900 mb-4">Audits en cours</h2>
+    <div class="bg-white rounded-lg shadow-md p-6 text-center">
+      <p class="text-gray-600">Vous n'avez pas d'audit en cours.</p>
+    </div>
+    
+    <h2 class="text-xl font-bold text-gray-900 mt-8 mb-4">Audits complétés</h2>
+    {completedAudits.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {completedAudits.map((audit) => (
+          <AuditCard
+            title={audit.type}
+            description={audit.description}
+            icon={audit.icon}
+            status={audit.status}
+            completionDate={audit.completionDate}
+            score={audit.score}
+            onClick={() => {}}
+            client:load
+          />
+        ))}
+      </div>
+    ) : (
+      <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        <p class="text-gray-600">Vous n'avez pas encore complété d'audit.</p>
+      </div>
+    )}
+  </div>
+</MainLayout>
+

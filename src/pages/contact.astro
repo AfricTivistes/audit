@@ -1,0 +1,142 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import DataSecurityBanner from '../components/DataSecurityBanner.astro';
+---
+
+<MainLayout title="Contact">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">Contactez-nous</h1>
+
+    <DataSecurityBanner />
+
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+      <div class="p-6">
+        <p class="text-gray-600 mb-6">
+          Nous sommes là pour vous aider. Si vous avez des questions, des commentaires ou des préoccupations concernant notre plateforme d'audit numérique, n'hésitez pas à nous contacter.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+          <div>
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Informations de contact</h2>
+            <ul class="space-y-3">
+              <li class="flex items-start">
+                <span class="mr-3 text-blue-600">📧</span>
+                <div>
+                  <p class="font-medium">Email</p>
+                  <a href="mailto:contact@africtivistes.org" class="text-blue-600 hover:underline">contact@africtivistes.org</a>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="mr-3 text-blue-600">📞</span>
+                <div>
+                  <p class="font-medium">Téléphone</p>
+                  <p>+221 XX XXX XX XX</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="mr-3 text-blue-600">🏢</span>
+                <div>
+                  <p class="font-medium">Adresse</p>
+                  <p>Dakar, Sénégal</p>
+                </div>
+              </li>
+              <li class="flex items-start">
+                <span class="mr-3 text-blue-600">⏱️</span>
+                <div>
+                  <p class="font-medium">Heures d'ouverture</p>
+                  <p>Lundi - Vendredi: 9h00 - 17h00</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold text-gray-900 mb-4">Envoyez-nous un message</h2>
+            <form class="space-y-4">
+              <div>
+                <label for="name" class="block text-sm font-medium text-gray-700">Nom complet</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="subject" class="block text-sm font-medium text-gray-700">Sujet</label>
+                <input 
+                  type="text" 
+                  id="subject" 
+                  name="subject" 
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                <textarea 
+                  id="message" 
+                  name="message" 
+                  rows="4" 
+                  class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  required
+                ></textarea>
+              </div>
+
+              <div>
+                <button 
+                  type="submit" 
+                  class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                >
+                  Envoyer le message
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-200 pt-6">
+          <h2 class="text-xl font-bold text-gray-900 mb-4">Foire aux questions</h2>
+          <div class="space-y-4">
+            <div>
+              <h3 class="font-medium text-gray-900">Comment puis-je commencer à utiliser la plateforme d'audit ?</h3>
+              <p class="text-gray-600 mt-1">Créez simplement un compte, connectez-vous et sélectionnez l'audit que vous souhaitez réaliser dans votre tableau de bord.</p>
+            </div>
+            <div>
+              <h3 class="font-medium text-gray-900">Mes données sont-elles sécurisées ?</h3>
+              <p class="text-gray-600 mt-1">Oui, toutes les données sont chiffrées et nous suivons les meilleures pratiques en matière de sécurité pour protéger vos informations.</p>
+            </div>
+            <div>
+              <h3 class="font-medium text-gray-900">Puis-je obtenir une assistance personnalisée ?</h3>
+              <p class="text-gray-600 mt-1">Bien sûr, contactez-nous par email ou téléphone et notre équipe sera heureuse de vous aider avec vos besoins spécifiques.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simuler l'envoi du formulaire
+    document.querySelector('form')?.addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Votre message a été envoyé avec succès. Nous vous répondrons dans les plus brefs délais.');
+      this.reset();
+    });
+  </script>
+</MainLayout>
+
