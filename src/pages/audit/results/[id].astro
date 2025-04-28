@@ -39,6 +39,12 @@ export function getStaticPaths() {
 }
 
 const { id } = Astro.params;
+
+const { user } = Astro.locals;
+
+if(!user){
+  return Astro.redirect('/login')
+}
 ---
 
 <MainLayout title="Résultats de l'audit" showSidebar={true}>

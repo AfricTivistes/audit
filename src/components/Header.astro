@@ -1,7 +1,12 @@
 ---
 import { Image } from 'astro:assets';
-import LogoutButton from './LogoutButton';
+import AuthButton from './AuthButton';
 import logoSrc from '../assets/logo.svg';
+
+const { user } = Astro.locals;
+
+const isLoggedIn = !!user;
+const userEmail = user?.email || '';
 ---
 
 <header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
@@ -11,7 +16,7 @@ import logoSrc from '../assets/logo.svg';
         <div class="flex-shrink-0 flex items-center">
           <a href="/" class="flex items-center">
             <Image src={logoSrc || "/placeholder.svg"} alt="Africtivistes Logo" class="h-10 w-auto" width={40} height={40} loading="eager" />
-            <span class="ml-3 text-xl font-bold text-gray-900">Digital Self-Audit</span>
+            <span class="ml-3 text-xl font-bold text-gray-900">AfricTivistes Digital Security Audit</span>
           </a>
         </div>
       </div>
@@ -19,10 +24,14 @@ import logoSrc from '../assets/logo.svg';
         <a href="/help" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
           Aide
         </a>
-        <a href="/profile" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+        {isLoggedIn && <a href="/settings" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
           Profil
-        </a>
-        <LogoutButton client:load />
+        </a>}
+        <AuthButton 
+          isLoggedIn={isLoggedIn} 
+          userEmail={userEmail} 
+          client:load 
+        />
       </div>
     </div>
   </div>

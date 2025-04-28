@@ -24,6 +24,12 @@ const { id } = Astro.params;
 const audit = mockData.audits.find(a => a.id === id) || {
   type: "Audit sûreté - sécurité numérique"
 };
+
+const { user } = Astro.locals;
+
+if(!user){
+  return Astro.redirect('/login')
+}
 ---
 
 <MainLayout title={audit.type} showSidebar={true}>
