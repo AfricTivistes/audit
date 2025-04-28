@@ -2,9 +2,24 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import DataSecurityBanner from '../components/DataSecurityBanner.astro';
 
-// Simuler la récupération des données depuis un fichier JSON
-import mockData from '../data/mock-data.json';
-const { user } = mockData;
+const { user } = Astro.locals;
+
+if(!user){
+  return Astro.redirect('/login')
+}
+
+const africanCountries = [
+  "Algérie", "Angola", "Bénin", "Botswana", "Burkina Faso", "Burundi", 
+  "Cabo Verde", "Cameroun", "République centrafricaine", "Tchad", "Comores", 
+  "République démocratique du Congo", "République du Congo", "Côte d'Ivoire", 
+  "Djibouti", "Égypte", "Guinée équatoriale", "Érythrée", "Eswatini", 
+  "Éthiopie", "Gabon", "Gambie", "Ghana", "Guinée", "Guinée-Bissau", 
+  "Kenya", "Lesotho", "Libéria", "Libye", "Madagascar", "Malawi", "Mali", 
+  "Mauritanie", "Maurice", "Maroc", "Mozambique", "Namibie", "Niger", 
+  "Nigéria", "Rwanda", "Sao Tomé-et-Principe", "Sénégal", "Seychelles", 
+  "Sierra Leone", "Somalie", "Afrique du Sud", "Soudan du Sud", "Soudan", 
+  "Tanzanie", "Togo", "Tunisie", "Ouganda", "Zambie", "Zimbabwe"
+];
 ---
 
 <MainLayout title="Paramètres" showSidebar={true}>
@@ -18,16 +33,16 @@ const { user } = mockData;
         <h2 class="text-lg font-medium text-gray-900">Informations personnelles</h2>
         <p class="mt-1 text-sm text-gray-500">Mettez à jour vos informations personnelles.</p>
       </div>
-      
+      <form method="POST">
       <div class="p-6 space-y-6">
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <div>
-            <label for="name" class="block text-sm font-medium text-gray-700">Nom complet</label>
+            <label for="fullName" class="block text-sm font-medium text-gray-700">Nom complet</label>
             <input 
               type="text" 
-              id="name" 
-              name="name" 
-              value={user.name}
+              id="fullName" 
+              name="fullName" 
+              value={user.fullName}
               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
@@ -61,10 +76,10 @@ const { user } = mockData;
               name="country" 
               class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
             >
-              <option value="Sénégal" selected={user.country === 'Sénégal'}>Sénégal</option>
-              <option value="Mali" selected={user.country === 'Mali'}>Mali</option>
-              <option value="Côte d'Ivoire" selected={user.country === 'Côte d\'Ivoire'}>Côte d'Ivoire</option>
-              <!-- Autres pays africains -->
+              <option value="" disabled selected={!user.country}>-- Choisir un pays --</option>
+              {africanCountries.map(country => (
+                <option value={country} selected={user.country === country}>{country}</option>
+              ))}
             </select>
           </div>
           
@@ -82,14 +97,16 @@ const { user } = mockData;
         
         <div class="flex justify-end">
           <button 
-            type="button" 
+            type="submit" 
             class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             Sauvegarder
           </button>
         </div>
       </div>
+      </form> 
     </div>
+   
     
     <div class="bg-white shadow-md rounded-lg overflow-hidden mt-8">
       <div class="p-6 border-b border-gray-200">
@@ -142,4 +159,15 @@ const { user } = mockData;
     </div>
   </div>
 </MainLayout>
+<script>
+  import { actions } from 'astro:actions';
+  import { navigate } from 'astro:transitions/client';
 
+  const form = document.querySelector('form');
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+    const { error } = await actions.updateProfile(formData);
+    if (!error) navigate('/dashboard');
+  })
+</script>
