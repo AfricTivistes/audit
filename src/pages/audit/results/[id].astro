@@ -21,23 +21,6 @@ const getScoreColorClass = (score) => {
 
 const scoreColorClass = getScoreColorClass(totalScore);
 
-// Fonction getStaticPaths requise pour les routes dynamiques
-export function getStaticPaths() {
-  // Générer des chemins pour chaque audit dans nos données mock
-  const paths = mockData.audits.map(audit => ({
-    params: { id: audit.id }
-  }));
-  
-  // Ajouter également les audits complétés
-  mockData.completedAudits.forEach(audit => {
-    paths.push({
-      params: { id: audit.id }
-    });
-  });
-  
-  return paths;
-}
-
 const { id } = Astro.params;
 
 const { user } = Astro.locals;

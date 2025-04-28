@@ -7,16 +7,6 @@ import DataSecurityBanner from '../../components/DataSecurityBanner.astro';
 import mockData from '../../data/mock-data.json';
 const { questions } = mockData;
 
-// Fonction getStaticPaths requise pour les routes dynamiques
-export function getStaticPaths() {
-  // Générer des chemins pour chaque audit dans nos données mock
-  const paths = mockData.audits.map(audit => ({
-    params: { id: audit.id }
-  }));
-  
-  return paths;
-}
-
 // Dans un vrai projet, on récupérerait l'ID de l'audit depuis les paramètres de l'URL
 const { id } = Astro.params;
 
