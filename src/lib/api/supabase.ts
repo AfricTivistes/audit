@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = import.meta.env.SUPABASE_URL
 const supabaseAnonKey = import.meta.env.SUPABASE_KEY
 
-const supabase = createClient< Database >(supabaseUrl, supabaseAnonKey)
+export const supabase = createClient< Database >(supabaseUrl, supabaseAnonKey)
 
 export async function getAudits() {
     const { data, error } = await supabase.from('audits').select();
