@@ -1,8 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 import AuthForm from '../components/AuthForm';
-import { Image } from 'astro:assets';
-import logoSrc from '../assets/logo.svg';
+import Logo from '../assets/logo.svg';
 
 const { user } = Astro.locals;
 
@@ -15,7 +14,7 @@ if(user){
   <div class="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
       <div class="flex justify-center">
-        <Image src={logoSrc || "/placeholder.svg"} alt="Africtivistes Logo" class="h-16 w-auto" width={64} height={64} />
+        <Logo alt="Africtivistes Logo" class="h-16 w-auto" width={64} height={64} />
       </div>
       <h2 class="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
         Connexion à votre compte

@@ -1,7 +1,6 @@
 ---
-import { Image } from 'astro:assets';
 import AuthButton from './AuthButton';
-import logoSrc from '../assets/logo.svg';
+import Logo from '../assets/logo.svg';
 
 const { user } = Astro.locals;
 
@@ -15,7 +14,7 @@ const userEmail = user?.email || '';
       <div class="flex">
         <div class="flex-shrink-0 flex items-center">
           <a href="/" class="flex items-center">
-            <Image src={logoSrc || "/placeholder.svg"} alt="Africtivistes Logo" class="h-10 w-auto" width={40} height={40} loading="eager" />
+            <Logo alt="Africtivistes Logo" class="h-10 w-auto" width={40} height={40} loading="eager" />
             <span class="ml-3 text-xl font-bold text-gray-900">AfricTivistes Digital Security Audit</span>
           </a>
         </div>
