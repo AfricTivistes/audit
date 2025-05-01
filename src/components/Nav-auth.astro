@@ -1,0 +1,20 @@
+---
+import AuthButton from './AuthButton';
+
+const { user } = Astro.locals;
+
+const isLoggedIn = !!user;
+const userEmail = user?.email || '';
+---
+
+<>
+  {isLoggedIn && <a href="/settings" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+    Profil
+  </a>}
+  <AuthButton 
+    isLoggedIn={isLoggedIn} 
+    userEmail={userEmail} 
+    client:load 
+  />
+</>
+

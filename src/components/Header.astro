@@ -1,14 +1,8 @@
 ---
-import AuthButton from './AuthButton';
 import Logo from '../assets/logo.svg';
-
-const { user } = Astro.locals;
-
-const isLoggedIn = !!user;
-const userEmail = user?.email || '';
 ---
 
-<header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
+<header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50" transition:persist>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex justify-between h-16">
       <div class="flex">
@@ -19,18 +13,11 @@ const userEmail = user?.email || '';
           </a>
         </div>
       </div>
-      <div class="flex items-center">
+      <div class="flex items-center" >
         <a href="/help" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
           Aide
         </a>
-        {isLoggedIn && <a href="/settings" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
-          Profil
-        </a>}
-        <AuthButton 
-          isLoggedIn={isLoggedIn} 
-          userEmail={userEmail} 
-          client:load 
-        />
+        <slot />
       </div>
     </div>
   </div>

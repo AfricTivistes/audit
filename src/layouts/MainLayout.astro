@@ -1,8 +1,9 @@
 ---
+import Nav from '../components/Nav-auth.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Sidebar from '../components/Sidebar.astro';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 
 interface Props {
@@ -21,10 +22,12 @@ const { title, showSidebar = false, fullHeight = false } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title} | AfricTivistes Digital Security Audit - ADISA</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <ViewTransitions />
+    <ClientRouter />
   </head>
   <body class="min-h-screen bg-gray-50 flex flex-col">
-    <Header />
+    <Header>
+      <Nav server:defer/>
+    </Header>
     
     <div class={`flex flex-1 ${fullHeight ? 'h-[calc(100vh-8rem)]' : ''}`}>
       {showSidebar && <Sidebar />}
