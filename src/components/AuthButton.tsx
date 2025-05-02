@@ -12,7 +12,7 @@ export default function AuthButton({ isLoggedIn, userEmail }) {
       // Si connecté : logique de déconnexion
       setIsLoggingOut(true)
       try {
-        const results = await actions.signOut()
+        const results = await actions.auth.signOut()
         if (!results.data?.success) {
           setIsLoggingOut(false)
           alert("Oops ! Impossible de se déconnecter. Veuillez réessayer.")

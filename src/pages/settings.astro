@@ -167,7 +167,7 @@ const africanCountries = [
   form?.addEventListener('submit', async (event) => {
     event.preventDefault();
     const formData = new FormData(form);
-    const { error } = await actions.updateProfile(formData);
+    const { error } = await actions.profile.updateProfile(formData);
     if (!error) navigate('/dashboard');
   })
 </script>

@@ -53,7 +53,7 @@ export default function AuthForm({ type }: AuthFormProps) {
         formData.append("password", password);
         formData.append("name", name);
 
-        const results = await actions.signUp(formData);
+        const results = await actions.auth.signUp(formData);
 
         if (!results.data?.success) {
           setError(results.data?.message || "Échec de l'inscription");
@@ -78,7 +78,7 @@ export default function AuthForm({ type }: AuthFormProps) {
          formData.append("email", email);
          formData.append("password", password);
 
-         const results = await actions.signIn(formData);
+         const results = await actions.auth.signIn(formData);
 
          if (!results.data?.success) {
            setError(results.data?.message || "Échec de la connexion");
