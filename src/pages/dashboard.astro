@@ -5,9 +5,9 @@ import DataSecurityBanner from '../components/DataSecurityBanner.astro';
 
 // Simuler la récupération des données depuis un fichier JSON
 import mockData from '../data/mock-data.json';
-const { audits, completedAudits } = mockData;
+const { auditss, completedAudits } = mockData;
 
-const { user } = Astro.locals;
+const { user, audits } = Astro.locals;
 
 if(!user){
   return Astro.redirect('/login')
@@ -16,7 +16,7 @@ if(!user){
 
 <MainLayout title="Tableau de bord" showSidebar={true}>
   <div class="max-w-7xl mx-auto">
-    <h1 class="text-2xl font-bold text-gray-900 mb-6">Bienvenue, {user.fullName}</h1>
+    <h1 class="text-2xl font-bold text-gray-900 mb-6">Bienvenue, {user.full_name}</h1>
     
     <DataSecurityBanner />
     
