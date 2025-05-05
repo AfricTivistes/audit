@@ -1,0 +1,15 @@
+---
+import Logo from '../assets/logo.svg';
+
+const { user } = Astro.locals;
+
+const isLoggedIn = !!user;
+---
+
+<>
+    <a href={isLoggedIn?"/dashboard":"/"} class="flex items-center">
+        <Logo alt="Africtivistes Logo" class="h-10 w-auto" width={40} height={40} loading="eager" />
+        <span class="ml-3 text-xl font-bold text-gray-900">AfricTivistes Digital Security Audit</span>
+    </a>
+</>
+

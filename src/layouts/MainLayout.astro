@@ -1,5 +1,6 @@
 ---
 import Nav from '../components/Nav-auth.astro';
+import Logo from '../components/Logo-auth.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Sidebar from '../components/Sidebar.astro';
@@ -26,6 +27,9 @@ const { title, showSidebar = false, fullHeight = false } = Astro.props;
   </head>
   <body class="min-h-screen bg-gray-50 flex flex-col">
     <Header>
+      <div slot="logo">
+        <Logo server:defer/>
+      </div>
       <Nav server:defer/>
     </Header>
     
