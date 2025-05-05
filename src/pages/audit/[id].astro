@@ -2,24 +2,89 @@
 import MainLayout from '../../layouts/MainLayout.astro';
 import QuestionForm from '../../components/QuestionForm';
 import DataSecurityBanner from '../../components/DataSecurityBanner.astro';
+import { createClient } from '../../lib/supabase';
 
-// Simuler la récupération des données depuis un fichier JSON
-import mockData from '../../data/mock-data.json';
-const { questions } = mockData;
-
-// Dans un vrai projet, on récupérerait l'ID de l'audit depuis les paramètres de l'URL
 const { id } = Astro.params;
-
-// Trouver l'audit correspondant à l'ID
-const audit = mockData.audits.find(a => a.id === id) || {
-  type: "Audit sûreté - sécurité numérique"
-};
-
 const { user } = Astro.locals;
 
-if(!user){
-  return Astro.redirect('/login')
+if (!user) {
+  return Astro.redirect('/login');
 }
+
+const supabase = createClient({ request: Astro.request, cookies: Astro.cookies });
+
+// Récupérer l'audit
+const { data: audit, error: auditError } = await supabase
+  .from('audits')
+  .select('*')
+  .eq('id', id)
+  .single();
+
+if (auditError || !audit) {
+  console.error('Erreur lors de la récupération de l\'audit:', auditError);
+  return new Response('Audit non trouvé', { status: 404 });
+}
+
+// Récupérer les questions
+const { data: questions, error: questionsError } = await supabase
+  .from('questions')
+  .select('id, text, type, options, required')
+  .eq('audit_id', id)
+  .order('question_order');
+
+if (questionsError) {
+  console.error('Erreur lors de la récupération des questions:', questionsError);
+  return new Response('Erreur serveur', { status: 500 });
+}
+
+console.log('Questions récupérées:', questions.map(q => ({ id: q.id, text: q.text })));
+
+// Vérifier l'état de l'audit pour cet utilisateur
+const { data: profileAudit, error: profileAuditError } = await supabase
+  .from('profile_audits')
+  .select('id, profile_id, audit_id, status')
+  .eq('profile_id', user.id)
+  .eq('audit_id', id)
+  .single();
+
+console.log('Profile audit:', profileAudit ? profileAudit : 'Non trouvé');
+
+let initialAnswers = {};
+if (profileAudit && profileAudit.status === 'in_progres') {
+  const { data: responses, error: responsesError } = await supabase
+    .from('responses')
+    .select('question_id, answer')
+    .eq('profile_audit_id', profileAudit.id);
+
+  console.log('Réponses récupérées:', responses || 'Aucune réponse');
+  console.log('Erreur réponses:', responsesError || 'Aucune erreur');
+
+  if (!responsesError && responses && responses.length > 0) {
+    initialAnswers = responses.reduce((acc, response) => {
+      acc[response.question_id] = response.answer;
+      return acc;
+    }, {});
+  }
+} else if (!profileAudit) {
+  // Démarrer un nouvel audit
+  const { data: newProfileAudit, error: insertError } = await supabase
+    .from('profile_audits')
+    .insert({
+      profile_id: user.id,
+      audit_id: id,
+      status: 'in_progres',
+    })
+    .select()
+    .single();
+
+  if (insertError) {
+    console.error('Erreur lors de la création de profile_audit:', insertError);
+    return new Response('Erreur serveur', { status: 500 });
+  }
+  console.log('Nouveau profile audit créé:', newProfileAudit);
+}
+
+console.log('Initial answers transmis:', initialAnswers);
 ---
 
 <MainLayout title={audit.type} showSidebar={true}>
@@ -30,19 +95,54 @@ if(!user){
     <DataSecurityBanner />
     
     <QuestionForm 
-      questions={questions} 
-      onComplete={(answers) => {
-        console.log('Audit completed', answers);
-        // Rediriger vers la page de résultats
-        window.location.href = `/audit/results/${id}`;
-      }}
-      onSave={(answers) => {
-        console.log('Audit saved', answers);
-        // Sauvegarder les réponses (simulé)
-        alert('Vos réponses ont été sauvegardées.');
+      questions={questions}
+      auditId={id}
+      initialAnswers={initialAnswers}
+      onComplete={async (answers) => {
+        const { data: profileAudit, error } = await supabase
+          .from('profile_audits')
+          .select('id')
+          .eq('profile_id', user.id)
+          .eq('audit_id', id)
+          .single();
+
+        if (error) {
+          console.error('Erreur lors de la récupération de profile_audit pour completion:', error);
+          return;
+        }
+
+        const responses = questions.map(question => ({
+          profile_audit_id: profileAudit.id,
+          question_id: question.id,
+          answer: answers[question.id] || null,
+        }));
+
+        const { error: upsertError } = await supabase
+          .from('responses')
+          .upsert(responses, { onConflict: 'unique_profile_audit_question' });
+
+        if (upsertError) {
+          console.error('Erreur lors de l\'upsert des réponses:', upsertError);
+          return;
+        }
+
+        const { error: updateError } = await supabase
+          .from('profile_audits')
+          .update({
+            status: 'completed',
+            completion_date: new Date().toISOString(),
+            score: Object.values(answers).filter(Boolean).length * 10,
+          })
+          .eq('id', profileAudit.id);
+
+        if (updateError) {
+          console.error('Erreur lors de la mise à jour de profile_audit:', updateError);
+          return;
+        }
+
+        window.location.href = `/audit/results/${profileAudit.id}`;
       }}
       client:load
     />
   </div>
 </MainLayout>
-

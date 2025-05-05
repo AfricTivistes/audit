@@ -3,14 +3,10 @@ import MainLayout from '../layouts/MainLayout.astro';
 import AuditCard from '../components/AuditCard';
 import DataSecurityBanner from '../components/DataSecurityBanner.astro';
 
-// Simuler la récupération des données depuis un fichier JSON
-import mockData from '../data/mock-data.json';
-const { auditss, completedAudits } = mockData;
-
 const { user, audits } = Astro.locals;
 
-if(!user){
-  return Astro.redirect('/login')
+if (!user) {
+  return Astro.redirect('/login');
 }
 ---
 
@@ -37,30 +33,44 @@ if(!user){
     
     <h2 class="text-xl font-bold text-gray-900 mb-4">Audits disponibles</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-      {audits.map((audit) => (
+      {audits.filter(audit => audit.status === 'available').map((audit) => (
         <AuditCard
-          title={audit.type}
-          description={audit.description}
-          icon={audit.icon}
-          status={audit.status}
-          onClick={() => {}}
+          id={audit.audit.id}
+          title={audit.audit.type}
+          description={audit.audit.description}
+          icon={audit.audit.icon}
+          status="available"
+          client:load
+        />
+      ))}
+    </div>
+    
+    <h2 class="text-xl font-bold text-gray-900 mb-4">Audits en cours</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      {audits.filter(audit => audit.status === 'in_progres').map((audit) => (
+        <AuditCard
+          id={audit.audit.id}
+          title={audit.audit.type}
+          description={audit.audit.description}
+          icon={audit.audit.icon}
+          status="in_progres"
           client:load
         />
       ))}
     </div>
     
     <h2 class="text-xl font-bold text-gray-900 mb-4">Audits complétés</h2>
-    {completedAudits.length > 0 ? (
+    {audits.filter(audit => audit.status === 'completed').length > 0 ? (
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {completedAudits.map((audit) => (
+        {audits.filter(audit => audit.status === 'completed').map((audit) => (
           <AuditCard
-            title={audit.type}
-            description={audit.description}
-            icon={audit.icon}
-            status={audit.status}
-            completionDate={audit.completionDate}
+            id={audit.audit.id}
+            title={audit.audit.type}
+            description={audit.audit.description}
+            icon={audit.audit.icon}
+            status="completed"
+            completionDate={audit.completion_date}
             score={audit.score}
-            onClick={() => {}}
             client:load
           />
         ))}
@@ -72,4 +82,3 @@ if(!user){
     )}
   </div>
 </MainLayout>
-

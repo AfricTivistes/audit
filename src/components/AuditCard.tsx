@@ -1,28 +1,28 @@
 "use client"
+import { navigate } from 'astro:transitions/client';
 
 interface AuditCardProps {
+  id: string
   title: string
   description: string
   icon: string
-  status?: "available" | "completed" | "in-progress"
+  status?: "available" | "completed" | "in_progres"
   completionDate?: string
   score?: number
-  onClick: () => void
 }
 
 export default function AuditCard({
+  id,
   title,
   description,
   icon,
   status = "available",
   completionDate,
   score,
-  onClick,
 }: AuditCardProps) {
   return (
     <div
       className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
-      onClick={onClick}
     >
       <div className="p-6">
         <div className="flex items-start">
@@ -54,7 +54,7 @@ export default function AuditCard({
               </div>
             )}
 
-            {status === "in-progress" && (
+            {status === "in_progres" && (
               <div className="mt-2">
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
                   En cours
@@ -69,8 +69,9 @@ export default function AuditCard({
                     ? "text-blue-600 bg-blue-50 hover:bg-blue-100"
                     : "text-white bg-blue-600 hover:bg-blue-700"
                 }`}
+                onClick={() => navigate(`/audit/${id}`)}
               >
-                {status === "completed" ? "Voir le rapport" : status === "in-progress" ? "Continuer" : "Démarrer"}
+                {status === "completed" ? "Voir le rapport" : status === "in_progres" ? "Continuer" : "Démarrer"}
               </button>
             </div>
           </div>
